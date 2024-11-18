@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resumen del Ciudadano</title>
+
+    {% load static %}  <!-- Cargar la etiqueta static -->
+
+    <!-- Vincula el archivo CSS global -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="summary-page"> <!-- Agrega la clase 'summary-page' para aplicar los estilos solo a esta vista -->
+    <div class="summary-container">
+        <h2 class="summary-title">Resumen del Ciudadano</h2>
+
+        <!-- Foto y detalles del ciudadano -->
+        <div class="ciudadano-info">
+            <img src="{{ ciudadano.photo.url }}" alt="Foto del Ciudadano" class="ciudadano-photo">
+            <div class="ciudadano-details">
+                <p><strong>Nombres:</strong> {{ ciudadano.nombres }}</p>
+                <p><strong>Apellidos:</strong> {{ ciudadano.apellidos }}</p>
+                <p><strong>Identificación:</strong> {{ ciudadano.identificacion }}</p>
+                <p><strong>Fecha de Nacimiento:</strong> {{ ciudadano.fecha_nacimiento }}</p>
+                <p><strong>Lugar de Nacimiento:</strong> {{ ciudadano.lugar_nacimiento }}</p>
+                <p><strong>Fecha de Expedición:</strong> {{ ciudadano.fecha_expedicion }}</p>
+                <p><strong>Lugar de Expedición:</strong> {{ ciudadano.lugar_expedicion }}</p>
+                <p><strong>RH:</strong> {{ ciudadano.rh }}</p>
+                <p><strong>Grupo Sanguíneo:</strong> {{ ciudadano.grupo_sanguineo }}</p>
+                <p><strong>Estatura:</strong> {{ ciudadano.estatura }}</p>
+            </div>
+        </div>
+
+        <!-- Botones funcionales -->
+        <div class="buttons-container">
+            <a href="{% url 'update_ciudadano' ciudadano.pk %}" class="button">Editar</a>
+
+            {% if puede_ver_antecedentes_civiles %}
+                <a href="{% url 'consulta_antecedentes_ciudadano' %}" class="button">Consultar Antecedentes Ciudadanos</a>
+            {% else %}
+                <a class="button disabled">Consultar Antecedentes Ciudadanos</a>
+            {% endif %}
+
+            {% if puede_ver_mis_antecedentes %}
+                <a href="{% url 'consulta_mis_antecedentes' %}" class="button">Consultar Mis Antecedentes</a>
+            {% else %}
+                <a class="button disabled">Consultar Mis Antecedentes</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
+
+
+
